@@ -1,7 +1,14 @@
 const express = require('express')
 const app = express()
 
+var morgan = require('morgan')
+morgan('tiny')
+
 app.use(express.json())
+app.use(morgan)
+
+const cors = require('cors')
+app.use(cors())
 
 const today = new Date();
 
@@ -108,7 +115,7 @@ app.post('/api/persons', (request, response) => {
 })
 
 
-const PORT = 3003
-  app.listen(PORT, () => {
-    console.log(`Server is now running on port ${PORT}`)
-  })
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
